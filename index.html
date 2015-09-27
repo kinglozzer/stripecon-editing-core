@@ -101,58 +101,211 @@ public function getDefaultSearchContext() {
 				<section>
 					<h2>Why shouldn’t I edit core files?</h2>
 					<ul>
-						<li class="fragment">Other developers
+						<li class="fragment">Other developers don’t know what you’ve done
 							<ul>
-								<li class="fragment"></li>
+								<li><abbr title="Without">w/o</abbr> Composer - no warning that changes have been made</li>
+								<li><abbr title="With">w/</abbr> Composer - warning about changed files, but no detail</li>
+							</ul>
+						</li>
+						<li class="fragment">Updates are harder
+							<ul>
+								<li>you should all be keeping up to date!</li>
+								<li><abbr title="Without">w/o</abbr> Composer - you have to manually re-apply fixes</li>
+								<li><abbr title="With">w/</abbr> Composer - easier (rebase), but still a very manual process</li>
+								<li class="fragment">eventually you’ll get bored or frustrated and give up</li>
+							</ul>
+						</li>
+						<li class="fragment">You might introduce other issues
+							<ul>
+								<li>nobody is perfect!</li>
+								<li class="fragment">core committers review <abbr title="pull requests">PRs</abbr> for potential bugs/security issues</li>
 							</ul>
 						</li>
 					</ul>
 				</section>
 
 				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
+					<h2>Workaround 1: Extensions</h2>
+					<p>Example 1: adding database fields &amp; extra methods</p>
+
+					<pre class="language-php">MyMemberExtension.php
+						<code data-trim>
+&lt;?php
+
+class MyMemberExtension extends DataExtension {
+
+	private static $db = array(
+		'DateOfBirth' => 'SS_Datetime'
+	);
+
+	public function SayHi() {
+		return "Hi " . $this->owner->Name;
+	}
+
+}
+						</code>
+					</pre>
+					<pre>_config.yml
+						<code data-trim class="nohighlight">
+Member:
+  extensions:
+	- MyMemberExtension
+						</code>
+					</pre>
 				</section>
 
 				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
+					<h2>Workaround 1: Extensions</h2>
+					<p>Example 2: augmenting database queries</p>
+
+					<pre class="language-php">BlogPostFilter.php
+						<code data-trim>
+&lt;?php
+
+class BlogPostFilter extends DataExtension {
+
+	public function augmentSQL(SQLQuery &amp;$query) {
+		$stage = Versioned::current_stage();
+
+		if($stage == 'Live' || !Permission::check('VIEW_DRAFT_CONTENT')) {
+			$sqlNow = Convert::raw2sql(SS_Datetime::now());
+			$query->addWhere(sprintf('"PublishDate" &lt; \'%s\'', $sqlNow));
+		}
+	}
+
+}
+
+						</code>
+					</pre>
+					<pre>_config.yml
+						<code data-trim class="nohighlight">
+BlogPost:
+  extensions:
+	- BlogPostFilter
+						</code>
+					</pre>
 				</section>
 
 				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
+					<h2>Workaround 1: Extensions</h2>
+					<div class="fragment">
+						<h3>Pros</h3>
+						<ul>
+							<li>Can be used to add extra database fields and form fields to built-in classes</li>
+							<li>Can add extra methods to classes</li>
+							<li class="fragment">Reusable! Package them up, release them as modules!</li>
+						</ul>
+					</div>
+					<p></p>
+					<div class="fragment">
+						<h3>Cons/Caveats</h3>
+						<ul>
+							<li>Reliant on extension points already existing for some features</li>
+							<li>Extensions have limited power - you might not be able to work around a bug</li>
+						</ul>
+					</div>
 				</section>
 
-				<!-- Example of nested vertical slides -->
 				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-						</a>
-					</section>
+					<h2>Workaround 2: Injector</h2>
+					<p>Example: adding an extension hook</p>
+					<pre class="language-php">ManyManyListWithHook.php
+						<code data-trim>
+&lt;?php
+
+class ManyManyListWithHook extends ManyManyList {
+
+	public function add($item, $extraFields = null) {
+		parent::add($item, $extraFields);
+
+		if($item instanceof DataObject) {
+			$item->extend('onAfterManyManyAdd', $this);
+		}
+	}
+
+}
+						</code>
+					</pre>
+					<pre>_config.yml
+						<code data-trim class="nohighlight">
+Injector:
+  ManyManyList:
+	class: ManyManyListWithHook
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>Workaround 2: Injector</h2>
+                    <p>Example: using the extension hook</p>
+					<pre class="language-php">MemberExtension.php
+                        <code data-trim>
+&lt;?php
+
+class MemberExtension extends Extension {
+
+    public function onAfterManyManyAdd(ManyManyList $list) {
+        Debug::log('Member added to many_many relation');
+    }
+
+}
+                        </code>
+                    </pre>
+                    <pre>_config.yml
+                        <code data-trim class="nohighlight">
+Member:
+  extensions:
+    - MemberExtension
+                        </code>
+                    </pre>
+				</section>
+
+				<section>
+					<h2>Workaround 2: Injector</h2>
+					<div class="fragment">
+						<h3>Pros</h3>
+						<ul>
+							<li>Can “replace” an entire class
+								<ul class="fragment">
+									<li>Can override a method, or an entire set of methods</li>
+									<li>Can completely change the behaviour of a method/class</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<p></p>
+					<div class="fragment">
+						<h3>Cons/Caveats</h3>
+						<ul>
+							<li>With great power comes great responsibility
+								<ul class="fragment">
+									<li>completely changing the behaviour of a method is a bad idea!</li>
+								</ul>
+							</li>
+							<li class="fragment">Must be instantiated with one of:
+								<ul class="fragment">
+									<li><code class="php">Class::create()</code></li>
+									<li><code class="php">Injector::inst()->get('Class')</code></li>
+									<li><code class="php">Injector::inst()->create('Class')</code></li>
+									<li><code class="php">Injector::inst()->createWithArgs('Class')</code></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<h2>What if none of that worked? :(</h2>
+				</section>
+
+				<section>
+					<h2>When all else fails, fork it!</h2>
+					<p><img src="img/fork.png" /></p>
+					<ul>
+						<li>Create a fork, apply your fix (don’t forget to PR!)</li>
+						<li>Use Git to periodically rebase from “upstream”</li>
+						<li>Can even use Composer to make things easier!</li>
+					</ul>
 				</section>
 
 				<section>
@@ -303,15 +456,15 @@ public function getDefaultSearchContext() {
 function linkify( selector ) {
   if( supports3DTransforms ) {
 
-    var nodes = document.querySelectorAll( selector );
+	var nodes = document.querySelectorAll( selector );
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+	for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
+	  var node = nodes[i];
 
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
+	  if( !node.className ) {
+		node.className += ' roll';
+	  }
+	}
   }
 }
 					</code></pre>
