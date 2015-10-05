@@ -14,7 +14,7 @@ body {
 
 .reveal {
   font-family: 'Open Sans', sans-serif;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: normal;
   color: #eee; }
 
@@ -263,3 +263,19 @@ body {
  *********************************************/
 .reveal .slide-number {
   color: #7ac143; }
+
+.bgopacity02 .slide-background.present {
+  opacity: 0.2; }
+
+.bgopacity04 .slide-background.present {
+  opacity: 0.4; }
+
+.bgopacity06 .slide-background.present {
+  opacity: 0.6; }
+
+.bgopacity08 .slide-background.present {
+  opacity: 0.8; }
+
+.reveal pre {
+  margin: 0 auto;
+  box-shadow: none; }

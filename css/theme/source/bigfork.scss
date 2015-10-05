@@ -28,9 +28,40 @@ $heading1Size: 3.25em;
 $headingLetterSpacing: -0.03em;
 $headingTextTransform: none;
 $selectionBackgroundColor: #7ac143;
-$mainFontSize: 30px;
+$mainFontSize: 25px;
 
 
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------
+
+.bgopacity02 {
+	.slide-background.present {
+		opacity: 0.2;
+	}
+}
+
+.bgopacity04 {
+	.slide-background.present {
+		opacity: 0.4;
+	}
+}
+
+.bgopacity06 {
+	.slide-background.present {
+		opacity: 0.6;
+	}
+}
+
+.bgopacity08 {
+	.slide-background.present {
+		opacity: 0.8;
+	}
+}
+
+.reveal {
+	pre {
+		margin: 0 auto;
+		box-shadow: none;
+	}
+}

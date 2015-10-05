@@ -56,10 +56,9 @@
 						<li class="fragment" data-fragment-index="1">Modifying someone else’s code</li>
 						<li class="fragment" data-fragment-index="2">Code outside the scope of “your project”</li>
 						<li class="fragment" data-fragment-index="3">Applies to framework, cms and any other modules</li>
-						<li class="fragment" data-fragment-index="4">Composer or no composer?</li>
 					</ul>
-					<pre class="fragment fade-in language-php" data-fragment-index="5">
-						<code data-trim class="fragment fade-out disp-out" data-fragment-index="6">
+					<pre class="fragment fade-in language-php" data-fragment-index="4">
+						<code data-trim class="fragment fade-out disp-out" data-fragment-index="5">
 // DataObject.php
 public function getDefaultSearchContext() {
 	return new SearchContext(
@@ -68,7 +67,7 @@ public function getDefaultSearchContext() {
 		$this->defaultSearchFilters()
 	);
 }
-						</code><code data-trim class="fragment fade-in disp-in" data-fragment-index="6">
+						</code><code data-trim class="fragment fade-in disp-in" data-fragment-index="5">
 // DataObject.php
 public function getDefaultSearchContext() {
 	$context = new SearchContext(
@@ -81,6 +80,13 @@ public function getDefaultSearchContext() {
 }
 						</code>
 					</pre>
+					<aside class="notes">
+						<ul>
+							<li>Code you didn’t write</li>
+							<li>“Your project” scope typically mysite/</li>
+							<li>Applies to all modules, composer or otherwise</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -96,32 +102,49 @@ public function getDefaultSearchContext() {
 						<li class="fragment">Missing/upcoming features<span class="fragment"> - time delay between minor versions</span></li>
 						<li class="fragment">Clients!</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>We still have bugs - almost 500 issues, over 100 PRs</li>
+							<li>Can’t wait if you’ve already been exploited. Email us</li>
+							<li>We’re speeding up releases, will still be a delay for minor</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h2>Why shouldn’t I edit core files?</h2>
 					<ul>
-						<li class="fragment">Other developers don’t know what you’ve done
-							<ul>
-								<li><abbr title="Without">w/o</abbr> Composer - no warning that changes have been made</li>
-								<li><abbr title="With">w/</abbr> Composer - warning about changed files, but no detail</li>
-							</ul>
-						</li>
+						<li class="fragment">Other developers don’t know what you’ve done</li>
 						<li class="fragment">Updates are harder
 							<ul>
 								<li>you should all be keeping up to date!</li>
-								<li><abbr title="Without">w/o</abbr> Composer - you have to manually re-apply fixes</li>
-								<li><abbr title="With">w/</abbr> Composer - easier (rebase), but still a very manual process</li>
 								<li class="fragment">eventually you’ll get bored or frustrated and give up</li>
 							</ul>
 						</li>
-						<li class="fragment">You might introduce other issues
-							<ul>
-								<li>nobody is perfect!</li>
-								<li class="fragment">core committers review <abbr title="pull requests">PRs</abbr> for potential bugs/security issues</li>
-							</ul>
-						</li>
+						<li class="fragment">You might accidentally introduce other issues</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Other devs
+								<ul>
+									<li>w/o Composer, no notice of changes</li>
+									<li>w/ Composer, notice but no detail</li>
+								</ul>
+							</li>
+							<li>Harder updates
+								<ul>
+									<li>Manual process - applying fixes, rebasing, cherry-picking commits</li>
+									<li>Eventually you’ll get frustrated and give up</li>
+								</ul>
+							</li>
+							<li>Other issues
+								<ul>
+									<li>Nobody is perfect</li>
+									<li>Worst case - you introduce a security issue</li>
+								</ul>
+							</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -145,6 +168,7 @@ class MyMemberExtension extends DataExtension {
 }
 						</code>
 					</pre>
+					<img style="position:relative;z-index:10;float:right;width:38%;margin: 0 0 0 2%;" loop="0" src="img/neat-once.gif" />
 					<pre>_config.yml
 						<code data-trim class="nohighlight">
 Member:
@@ -152,6 +176,12 @@ Member:
 	- MyMemberExtension
 						</code>
 					</pre>
+					<aside class="notes">
+						<ul>
+							<li>Simple example from docs</li>
+							<li>Adding a database field, adding a method</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -167,7 +197,7 @@ class BlogPostFilter extends DataExtension {
 	public function augmentSQL(SQLQuery &amp;$query) {
 		$stage = Versioned::current_stage();
 
-		if($stage == 'Live' || !Permission::check('VIEW_DRAFT_CONTENT')) {
+		if ($stage == 'Live' || !Permission::check('VIEW_DRAFT_CONTENT')) {
 			$sqlNow = Convert::raw2sql(SS_Datetime::now());
 			$query->addWhere(sprintf('"PublishDate" &lt; \'%s\'', $sqlNow));
 		}
@@ -177,6 +207,7 @@ class BlogPostFilter extends DataExtension {
 
 						</code>
 					</pre>
+					<img style="position:relative;z-index:10;float:right;width:30%;margin: 0 0 0 2%;" loop="0" src="img/thumbsup-once.gif" />
 					<pre>_config.yml
 						<code data-trim class="nohighlight">
 BlogPost:
@@ -184,6 +215,12 @@ BlogPost:
 	- BlogPostFilter
 						</code>
 					</pre>
+					<aside class="notes">
+						<ul>
+							<li>Simplified snippet from blog module</li>
+							<li>Hides posts with future publish dates from live site, or to users without permission to view draft content</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -191,19 +228,26 @@ BlogPost:
 					<div class="fragment">
 						<h3>Pros</h3>
 						<ul>
-							<li>Can be used to add extra database fields and form fields to built-in classes</li>
-							<li>Can add extra methods to classes</li>
-							<li class="fragment">Reusable! Package them up, release them as modules!</li>
+							<li>Can be used to add things to built-in classes</li>
+							<li class="fragment">Reusable: package them up, release them as modules!</li>
 						</ul>
 					</div>
 					<p></p>
 					<div class="fragment">
 						<h3>Cons/Caveats</h3>
 						<ul>
-							<li>Reliant on extension points already existing for some features</li>
-							<li>Extensions have limited power - you might not be able to work around a bug</li>
+							<li>Reliant on extension points</li>
+							<li class="fragment">Extensions have limited power</li>
 						</ul>
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Can add database fields, form fields, extra methods</li>
+							<li>Re-usable across projects if done right</li>
+							<li>Reliant on extension points for some features</li>
+							<li>Limited power - you might not be able to work around a bug</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -233,9 +277,16 @@ Injector:
 	class: ManyManyListWithHook
 						</code>
 					</pre>
+					<aside class="notes">
+						<ul>
+							<li>Adding an extension hook</li>
+							<li>Inheriting from parent class/method</li>
+							<li>Minimal intrusion, minimal modification of args, minimal risk</li>
+						</ul>
+					</aside>
 				</section>
 
-				<section>
+				<section data-background="img/mindblown.gif" data-state="bgopacity02">
 					<h2>Workaround 2: Injector</h2>
                     <p>Example: using the extension hook</p>
 					<pre class="language-php">MemberExtension.php
@@ -258,6 +309,14 @@ Member:
     - MemberExtension
                         </code>
                     </pre>
+                    <aside class="notes">
+	                    <ul>
+							<li>Can access everything from ManyManyList instance</li>
+							<li>Could add array of foreign IDs</li>
+							<li>Could add array of extra fields</li>
+							<li>Could add "before" hook so we can update extra fields</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -265,25 +324,17 @@ Member:
 					<div class="fragment">
 						<h3>Pros</h3>
 						<ul>
-							<li>Can “replace” an entire class
-								<ul class="fragment">
-									<li>Can override a method, or an entire set of methods</li>
-									<li>Can completely change the behaviour of a method/class</li>
-								</ul>
-							</li>
+							<li>Can “replace” an entire class</li>
+							<li class="fragment">Super powerful</li>
 						</ul>
 					</div>
 					<p></p>
 					<div class="fragment">
 						<h3>Cons/Caveats</h3>
 						<ul>
-							<li>With great power comes great responsibility
-								<ul class="fragment">
-									<li>completely changing the behaviour of a method is a bad idea!</li>
-								</ul>
-							</li>
+							<li>With great power comes great responsibility</li>
 							<li class="fragment">Must be instantiated with one of:
-								<ul class="fragment">
+								<ul>
 									<li><code class="php">Class::create()</code></li>
 									<li><code class="php">Injector::inst()->get('Class')</code></li>
 									<li><code class="php">Injector::inst()->create('Class')</code></li>
@@ -292,10 +343,17 @@ Member:
 							</li>
 						</ul>
 					</div>
+					<aside class="notes">
+	                    <ul>
+							<li>Can override a method, or an entire set of methods</li>
+							<li>Can completely change the behaviour of a method/class</li>
+							<li>Completely changing the behaviour of a method is a bad idea!</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
-					<h2>What if none of that worked? :(</h2>
+					<img src="img/theres-more.jpg" />
 				</section>
 
 				<section>
