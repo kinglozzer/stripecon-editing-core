@@ -358,10 +358,17 @@ Member:
 					<h2>When all else fails, fork it!</h2>
 					<p><img src="img/fork.png" /></p>
 					<ul>
-						<li>Create a fork, apply your fix (don’t forget to PR!)</li>
+						<li>Create a fork, apply your fix</li>
 						<li>Use Git to periodically rebase from “upstream”</li>
 						<li>Can even use Composer to make things easier!</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Create your own branch</li>
+							<li>Upstream = main SilverStripe repo</li>
+							<li>Pull in changes, fixes, features - re-add yours on top</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -391,6 +398,12 @@ Member:
 					</pre>
 					<img class="fragment" data-fragment-index="2" style="float: left; width: 70%;" src="img/fork-github.png" />
                     <img class="fragment" data-fragment-index="3" style="float: right; width: 27%;" src="img/fork-url.png" />
+                    <aside class="notes">
+						<ul>
+							<li>Fork - will create a copy of main repo on your account</li>
+							<li>Copy the clone URL, paste in "repositories"</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -424,16 +437,32 @@ Member:
 }
 						</code>
 					</pre>
+					<aside class="notes">
+						<ul>
+							<li>Imagine we&rsquo;ve created a new branch &ldquo;hotfix&rdquo;</li>
+							<li>Push your commit/commits up to your fork</li>
+							<li>Swap in your branch name</li>
+							<li><code>dev-</code> prefix tells Composer &ldquo;use latest&rdquo;</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h2>Not quite...</h2>
 					<img src="img/composer-error.png" />
 					<img src="img/almostthere.gif" class="fragment fade-out" />
+					<aside class="notes">
+						<ul>
+							<li>1 problem, 7 errors, don&rsquo;t lose faith</li>
+							<li>Composer is trying its best! Step through it</li>
+							<li>It tells us it&rsquo;s conflicted between <code>3.1.x-dev</code> and <code>dev-hotfix</code></li>
+							<li>It can&rsquo;t translate <code>dev-hotfix</code> to a version number</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
-					<h2>Finished!</h2>
+					<h2>Fixed!</h2>
 					<pre>composer.json
 						<code data-trim class="fragment fade-out disp-out" data-fragment-index="1">
 {
@@ -464,17 +493,25 @@ Member:
 						</code>
 					</pre>
 					<img class="fragment" data-fragment-index="2" src="img/composer-complete.png" width="532" />
+					<aside class="notes">
+						<ul>
+							<li>Will fetch <code>hotfix</code> and alias it to <code>3.1.x-dev</code></li>
+							<li>Tells Composer which version (roughly) our branch matches up to</li>
+							<li>Could tag a release, but that would cause confusion - <code>dev</code> communicates instability to other devs</li>
+							<li>Whenever/wherever/whoever <code>composer install</code>s - it will be the same</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h2>Forking</h2>
-					<div class="fragment">
+					<div>
 						<h3>Pros</h3>
 						<ul>
 							<li>Easier to:
 								<ul>
 									<li class="fragment">keep track of modifications made</li>
-									<li class="fragment">re-apply during update - rebase/cherry-pick</li>
+									<li class="fragment">re-apply changes during updates - rebase/cherry-pick</li>
 									<li class="fragment">create a PR!</li>
 								</ul>
 							</li>
@@ -488,6 +525,15 @@ Member:
 							<li class="fragment">Slows down composer updates</li>
 						</ul>
 					</div>
+					<aside class="notes">
+						<ul>
+							<li><strong>Pros</strong> - Keep track - commit history, fixed in time</li>
+							<li>Reapplying changes - Git was designed for this, leverage it!</li>
+							<li>Create PR - everyone can share your awesome code</li>
+							<li><strong>Cons</strong> - It&rsquo;s extra effort - still very manual</li>
+							<li>Slows down updates (not installs). Runs through every branch/tag for .json, scans them</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -495,9 +541,16 @@ Member:
 					<ul>
 						<li class="fragment">Use extensions where possible</li>
 						<li class="fragment">For simple additions/fixes to methods, Injector should be okay</li>
-						<li class="fragment">For large changes, or anything else you can’t work around, fork</li>
+						<li class="fragment">For anything else you can’t work around, fork as last resort</li>
 						<li class="fragment">Use Composer!</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Extensions - lightweight, easy (for you &amp; others), reusable</li>
+							<li>Injector - use with caution, don&rsquo;t re-invent the wheel with it</li>
+							<li>Fork - last resort. If you can&rsquo;t work around/talk client down, or critical</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
