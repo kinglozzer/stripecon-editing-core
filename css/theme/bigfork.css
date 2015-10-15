@@ -270,6 +270,9 @@ body {
 .bgopacity02 .slide-background.present {
   opacity: 0.2; }
 
+.bgopacity03 .slide-background.present {
+  opacity: 0.3; }
+
 .bgopacity04 .slide-background.present {
   opacity: 0.4; }
 
@@ -281,4 +284,5 @@ body {
 
 .reveal pre {
   margin: 0 auto;
-  box-shadow: none; }
+  box-shadow: none;
+  font-size: 0.5em; }

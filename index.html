@@ -57,29 +57,6 @@
 						<li class="fragment" data-fragment-index="2">Code outside the scope of “your project”</li>
 						<li class="fragment" data-fragment-index="3">Applies to framework, cms and any other modules</li>
 					</ul>
-					<pre class="fragment fade-in language-php" data-fragment-index="4">
-						<code data-trim class="fragment fade-out disp-out" data-fragment-index="5">
-// DataObject.php
-public function getDefaultSearchContext() {
-	return new SearchContext(
-		$this->class,
-		$this->scaffoldSearchFields(),
-		$this->defaultSearchFilters()
-	);
-}
-						</code><code data-trim class="fragment fade-in disp-in" data-fragment-index="5">
-// DataObject.php
-public function getDefaultSearchContext() {
-	$context = new SearchContext(
-		$this->class,
-		$this->scaffoldSearchFields(),
-		$this->defaultSearchFilters()
-	);
-	$this->extend('updateDefaultSearchContext', $context);
-	return $context;
-}
-						</code>
-					</pre>
 					<aside class="notes">
 						<ul>
 							<li>Code you didn’t write</li>
@@ -117,7 +94,7 @@ public function getDefaultSearchContext() {
 						<li class="fragment">Other developers don’t know what you’ve done</li>
 						<li class="fragment">Updates are harder
 							<ul>
-								<li>you should all be keeping up to date!</li>
+								<li>(you should all be keeping up to date!)</li>
 								<li class="fragment">eventually you’ll get bored or frustrated and give up</li>
 							</ul>
 						</li>
@@ -188,7 +165,7 @@ Member:
 					</aside>
 				</section>
 
-				<section data-background="img/augment.jpg" data-state="bgopacity02">
+				<section data-background="img/augment-2.jpg" data-state="bgopacity02">
 					<h2>Workaround 1: Extensions</h2>
 					<p>Example 2: augmenting database queries</p>
 
@@ -294,7 +271,7 @@ Injector:
 					 <p><small>Credit to <a href="https://github.com/camspiers">@camspiers</a> / <a href="https://github.com/heyday/silverstripe-cacheinclude">silverstripe-cacheinclude</a> module</small></p>
 				</section>
 
-				<section data-background="img/injectcore.jpg" data-state="bgopacity02">
+				<section data-background="img/injectcore.jpg" data-state="bgopacity03">
 					<h2>Workaround 2: Injector</h2>
                     <p>Example: using the extension hook</p>
 					<pre class="language-php">MemberExtension.php
@@ -370,7 +347,7 @@ Member:
 					<ul>
 						<li>Create a fork, apply your fix</li>
 						<li>Use Git to periodically rebase from “upstream”</li>
-						<li>Can even use Composer to make things easier!</li>
+						<li>Composer helps to make this easier!</li>
 					</ul>
 					<aside class="notes">
 						<ul>
@@ -599,6 +576,9 @@ Member:
 				progress: true,
 				history: true,
 				center: true,
+
+				width: 910,
+				height: 700,
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
