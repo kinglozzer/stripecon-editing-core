@@ -50,7 +50,7 @@
 					</p>
 				</section>
 
-				<section>
+				<section data-background="img/applecore.jpg" data-state="bgopacity02">
 					<h2>What do you mean “editing core files”?</h2>
 					<ul>
 						<li class="fragment" data-fragment-index="1">Modifying someone else’s code</li>
@@ -89,7 +89,7 @@ public function getDefaultSearchContext() {
 					</aside>
 				</section>
 
-				<section>
+				<section data-background="img/why.jpg" data-state="bgopacity02">
 					<h2>Why would I edit core files?</h2>
 					<ul>
 						<li class="fragment">Bugs - SilverStripe isn’t (quite) perfect</li>
@@ -111,7 +111,7 @@ public function getDefaultSearchContext() {
 					</aside>
 				</section>
 
-				<section>
+				<section data-background="img/nuke.jpg" data-state="bgopacity02">
 					<h2>Why shouldn’t I edit core files?</h2>
 					<ul>
 						<li class="fragment">Other developers don’t know what you’ve done</li>
@@ -151,7 +151,7 @@ public function getDefaultSearchContext() {
 					<h2>How can I avoid editing core?</h2>
 				</section>
 
-				<section>
+				<section data-background="img/building.jpg" data-state="bgopacity02">
 					<h2>Workaround 1: Extensions</h2>
 					<p>Example 1: adding database fields &amp; extra methods</p>
 
@@ -188,7 +188,7 @@ Member:
 					</aside>
 				</section>
 
-				<section>
+				<section data-background="img/augment.jpg" data-state="bgopacity02">
 					<h2>Workaround 1: Extensions</h2>
 					<p>Example 2: augmenting database queries</p>
 
@@ -253,7 +253,7 @@ BlogPost:
 					</aside>
 				</section>
 
-				<section data-background="img/mindblown.gif" data-state="bgopacity02">
+				<section data-background="img/injection.jpg" data-state="bgopacity02">
 					<h2>Workaround 2: Injector</h2>
 					<p>Example: adding an extension hook</p>
 					<pre class="language-php">ManyManyListWithHook.php
@@ -290,6 +290,11 @@ Injector:
 				</section>
 
 				<section>
+					 <img src="img/mindblown.gif" />
+					 <p><small>Credit to <a href="https://github.com/camspiers">@camspiers</a> / <a href="https://github.com/heyday/silverstripe-cacheinclude">silverstripe-cacheinclude</a> module</small></p>
+				</section>
+
+				<section data-background="img/injectcore.jpg" data-state="bgopacity02">
 					<h2>Workaround 2: Injector</h2>
                     <p>Example: using the extension hook</p>
 					<pre class="language-php">MemberExtension.php
@@ -376,7 +381,7 @@ Member:
 					</aside>
 				</section>
 
-				<section>
+				<section data-background="img/fork.jpg" data-state="bgopacity01">
 					<h2>Example</h2>
                     <pre class="fragment fade-in language-json" data-fragment-index="1">composer.json
 						<code data-trim class="fragment fade-out disp-out" data-fragment-index="4">
@@ -466,10 +471,10 @@ Member:
 					</aside>
 				</section>
 
-				<section>
+				<section data-transition="slide-in fade-out">
 					<h2>Fixed!</h2>
 					<pre>composer.json
-						<code data-trim class="fragment fade-out disp-out" data-fragment-index="1">
+						<code data-trim>
 {
     "require": {
         "silverstripe/cms": "3.1.15",
@@ -482,7 +487,15 @@ Member:
         }
     ]
 }
-						</code><code data-trim class="fragment fade-in disp-in" data-fragment-index="1">
+						</code>
+					</pre>
+					<img style="visibility:hidden" src="img/composer-complete.png" width="532" />
+				</section>
+
+				<section data-transition="fade-in slide-out" data-background="img/borat-nice.jpg" data-state="bgopacity02">
+					<h2>Fixed!</h2>
+					<pre>composer.json
+						<code data-trim>
 {
     "require": {
         "silverstripe/cms": "3.1.15",
@@ -541,7 +554,7 @@ Member:
 					</aside>
 				</section>
 
-				<section>
+				<section data-background="img/finished.jpg" data-state="bgopacity01">
 					<h2>Summary</h2>
 					<ul>
 						<li class="fragment">Use extensions where possible</li>

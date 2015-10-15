@@ -264,6 +264,9 @@ body {
 .reveal .slide-number {
   color: #7ac143; }
 
+.bgopacity01 .slide-background.present {
+  opacity: 0.1; }
+
 .bgopacity02 .slide-background.present {
   opacity: 0.2; }
 

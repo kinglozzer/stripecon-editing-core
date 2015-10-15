@@ -35,6 +35,12 @@ $mainFontSize: 30px;
 @import "../template/theme";
 // ---------------------------------------------
 
+.bgopacity01 {
+	.slide-background.present {
+		opacity: 0.1;
+	}
+}
+
 .bgopacity02 {
 	.slide-background.present {
 		opacity: 0.2;
