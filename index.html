@@ -1,280 +1,282 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-		<title>Why you shouldn’t edit SilverStripe core files (and how to do it anyway)</title>
+        <title>Why you shouldn’t edit SilverStripe core files (and how to do it anyway)</title>
 
-		<meta name="description" content="Why you shouldn’t edit SilverStripe core files (and how to do it anyway)">
-		<meta name="author" content="Loz Calver">
+        <meta name="description" content="Why you shouldn’t edit SilverStripe core files (and how to do it anyway)">
+        <meta name="author" content="Loz Calver">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/bigfork.css" id="theme">
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/bigfork.css" id="theme">
 
-		<!-- Code syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
 
-	<body>
+    <body>
 
-		<div class="reveal">
+        <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Why you shouldn’t edit SilverStripe core files</h1>
-					<h3>(and how to do it anyway)</h3>
-					<p>
-						<small>By Loz Calver / <a href="http://twitter.com/kinglozzer">@kinglozzer</a></small>
-						<br />
-						<a href="https://www.bigfork.co.uk" target="_blank"><img src="img/icon.png" width="64" height="64" /></a>
-					</p>
-				</section>
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>Why you shouldn’t edit SilverStripe core files</h1>
+                    <h3>(and how to do it anyway)</h3>
+                    <p>
+                        <small>By Loz Calver / <a href="http://twitter.com/kinglozzer">@kinglozzer</a></small>
+                        <br />
+                        <a href="https://www.bigfork.co.uk" target="_blank"><img src="img/icon.png" width="64" height="64" /></a>
+                    </p>
+                </section>
 
-				<section data-background="img/applecore.jpg" data-state="bgopacity02">
-					<h2>What do you mean “editing core files”?</h2>
-					<ul>
-						<li class="fragment" data-fragment-index="1">Modifying someone else’s code</li>
-						<li class="fragment" data-fragment-index="2">Code outside the scope of “your project”</li>
-						<li class="fragment" data-fragment-index="3">Applies to framework, cms and any other modules</li>
-					</ul>
-					<aside class="notes">
-						<ul>
-							<li>Code you didn’t write</li>
-							<li>“Your project” scope typically mysite/</li>
-							<li>Applies to all modules, composer or otherwise</li>
-						</ul>
-					</aside>
-				</section>
+                <section data-background="img/applecore.jpg" data-state="bgopacity02">
+                    <h2>What do you mean “editing core files”?</h2>
+                    <ul>
+                        <li class="fragment" data-fragment-index="1">Modifying someone else’s code</li>
+                        <li class="fragment" data-fragment-index="2">Code outside the scope of “your project”</li>
+                        <li class="fragment" data-fragment-index="3">Applies to framework, cms and any other modules</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>Code you didn’t write</li>
+                            <li>“Your project” scope typically mysite/</li>
+                            <li>Applies to all modules, composer or otherwise</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section data-background="img/why.jpg" data-state="bgopacity02">
-					<h2>Why would I edit core files?</h2>
-					<ul>
-						<li class="fragment">Bugs - SilverStripe isn’t (quite) perfect</li>
-						<li class="fragment">Security
-							<ul>
-								<li class="fragment">need urgent/immediate fix</li>
-								<li class="fragment">email us! <a href="mailto:security@silverstripe.org">security@silverstripe.org</a></li>
-							</ul>
-						</li>
-						<li class="fragment">Missing/upcoming features<span class="fragment"> - time delay between minor versions</span></li>
-						<li class="fragment">Clients!</li>
-					</ul>
-					<aside class="notes">
-						<ul>
-							<li>We still have bugs - almost 500 issues, over 100 PRs</li>
-							<li>Can’t wait if you’ve already been exploited. Email us</li>
-							<li>We’re speeding up releases, will still be a delay for minor</li>
-						</ul>
-					</aside>
-				</section>
+                <section data-background="img/why.jpg" data-state="bgopacity02">
+                    <h2>Why would I edit core files?</h2>
+                    <ul>
+                        <li class="fragment">Bugs - SilverStripe isn’t (quite) perfect</li>
+                        <li class="fragment">Security
+                            <ul>
+                                <li class="fragment">need urgent/immediate fix</li>
+                                <li class="fragment">email us! <a href="mailto:security@silverstripe.org">security@silverstripe.org</a></li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Missing/upcoming features<span class="fragment"> - time delay between minor versions</span></li>
+                        <li class="fragment">Clients!</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>We still have bugs - almost 500 issues, over 100 PRs</li>
+                            <li>Can’t wait if you’ve already been exploited. Email us</li>
+                            <li>We’re speeding up releases, will still be a delay for minor</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section data-background="img/nuke.jpg" data-state="bgopacity02">
-					<h2>Why shouldn’t I edit core files?</h2>
-					<ul>
-						<li class="fragment">Other developers don’t know what you’ve done</li>
-						<li class="fragment">Updates are harder
-							<ul>
-								<li>(you should all be keeping up to date!)</li>
-								<li class="fragment">eventually you’ll get bored or frustrated and give up</li>
-							</ul>
-						</li>
-						<li class="fragment">You might accidentally introduce other issues</li>
-					</ul>
-					<aside class="notes">
-						<ul>
-							<li>Other devs
-								<ul>
-									<li>w/o Composer, no notice of changes</li>
-									<li>w/ Composer, notice but no detail</li>
-								</ul>
-							</li>
-							<li>Harder updates
-								<ul>
-									<li>Manual process - applying fixes, rebasing, cherry-picking commits</li>
-									<li>Eventually you’ll get frustrated and give up</li>
-								</ul>
-							</li>
-							<li>Other issues
-								<ul>
-									<li>Nobody is perfect</li>
-									<li>Worst case - you introduce a security issue</li>
-								</ul>
-							</li>
-						</ul>
-					</aside>
-				</section>
+                <section data-background="img/nuke.jpg" data-state="bgopacity02">
+                    <h2>Why shouldn’t I edit core files?</h2>
+                    <ul>
+                        <li class="fragment">Other developers don’t know what you’ve done</li>
+                        <li class="fragment">Updates are harder
+                            <ul>
+                                <li>(you should all be keeping up to date!)</li>
+                                <li class="fragment">eventually you’ll get bored or frustrated and give up</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">You might accidentally introduce other issues</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>Other devs
+                                <ul>
+                                    <li>w/o Composer, no notice of changes</li>
+                                    <li>w/ Composer, notice but no detail</li>
+                                </ul>
+                            </li>
+                            <li>Harder updates
+                                <ul>
+                                    <li>Manual process - applying fixes, rebasing, cherry-picking commits</li>
+                                    <li>Eventually you’ll get frustrated and give up</li>
+                                </ul>
+                            </li>
+                            <li>Other issues
+                                <ul>
+                                    <li>Nobody is perfect</li>
+                                    <li>Worst case - you introduce a security issue</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<h2>How can I avoid editing core?</h2>
-				</section>
+                <section>
+                    <h2>How can I avoid editing core?</h2>
+                </section>
 
-				<section data-background="img/building.jpg" data-state="bgopacity02">
-					<h2>Workaround 1: Extensions</h2>
-					<p>Example 1: adding database fields &amp; extra methods</p>
+                <section data-background="img/building.jpg" data-state="bgopacity02">
+                    <h2>Workaround 1: Extensions</h2>
+                    <p>Example 1: adding database fields &amp; extra methods</p>
 
-					<pre class="language-php">MyMemberExtension.php
-						<code data-trim>
+                    <pre class="language-php">MyMemberExtension.php
+                        <code data-trim>
 &lt;?php
 
 class MyMemberExtension extends DataExtension {
 
-	private static $db = array(
-		'DateOfBirth' => 'SS_Datetime'
-	);
+    private static $db = array(
+        'DateOfBirth' => 'SS_Datetime'
+    );
 
-	public function SayHi() {
-		return "Hi " . $this->owner->Name;
-	}
+    public function SayHi() {
+        return "Hi " . $this->owner->Name;
+    }
 
 }
-						</code>
-					</pre>
-					<pre>_config.yml
-						<code data-trim class="nohighlight">
+                        </code>
+                    </pre>
+                    <pre>_config.yml
+                        <code data-trim class="nohighlight">
 Member:
   extensions:
-	- MyMemberExtension
-						</code>
-					</pre>
-					<aside class="notes">
-						<ul>
-							<li>Simple example from docs</li>
-							<li>Adding a database field, adding a method</li>
-							<li>Tip: dig around core core and look for hooks!</li>
-						</ul>
-					</aside>
-				</section>
+    - MyMemberExtension
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        <ul>
+                            <li>Simple example from docs</li>
+                            <li>Adding a database field, adding a method</li>
+                            <li>Tip: dig around core core and look for hooks!</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section data-background="img/augment-2.jpg" data-state="bgopacity02">
-					<h2>Workaround 1: Extensions</h2>
-					<p>Example 2: augmenting database queries</p>
+                <section data-background="img/augment-2.jpg" data-state="bgopacity02">
+                    <h2>Workaround 1: Extensions</h2>
+                    <p>Example 2: augmenting database queries</p>
 
-					<pre class="language-php">BlogPostFilter.php
-						<code data-trim>
+                    <pre class="language-php">BlogPostFilter.php
+                        <code data-trim>
 &lt;?php
 
 class BlogPostFilter extends DataExtension {
 
-	public function augmentSQL(SQLQuery &amp;$query) {
-		$stage = Versioned::current_stage();
+    public function augmentSQL(SQLQuery &amp;$query) {
+        $stage = Versioned::current_stage();
 
-		if ($stage == 'Live' || !Permission::check('VIEW_DRAFT_CONTENT')) {
-			$sqlNow = Convert::raw2sql(SS_Datetime::now());
-			$query->addWhere(sprintf('"PublishDate" &lt; \'%s\'', $sqlNow));
-		}
-	}
+        if ($stage == 'Live' || !Permission::check('VIEW_DRAFT_CONTENT')) {
+            $sqlNow = Convert::raw2sql(SS_Datetime::now());
+            $query->addWhere(sprintf('"PublishDate" &lt; \'%s\'', $sqlNow));
+        }
+    }
 
 }
 
-						</code>
-					</pre>
-					<pre>_config.yml
-						<code data-trim class="nohighlight">
+                        </code>
+                    </pre>
+                    <pre>_config.yml
+                        <code data-trim class="nohighlight">
 BlogPost:
   extensions:
-	- BlogPostFilter
-						</code>
-					</pre>
-					<aside class="notes">
-						<ul>
-							<li>Simplified snippet from blog module</li>
-							<li>Hides posts with future publish dates from live site, or to users without permission to view draft content</li>
-						</ul>
-					</aside>
-				</section>
+    - BlogPostFilter
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        <ul>
+                            <li>Simplified snippet from blog module</li>
+                            <li>Hides posts with future publish dates from live site, or to users without permission to view draft content</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<h2>Workaround 1: Extensions</h2>
-					<div class="fragment">
-						<h3>Pros</h3>
-						<ul>
-							<li>Can be used to add things to built-in classes</li>
-							<li class="fragment">Reusable: package them up, release them as modules!</li>
-						</ul>
-					</div>
-					<p></p>
-					<div class="fragment">
-						<h3>Cons/Caveats</h3>
-						<ul>
-							<li>Reliant on extension points</li>
-							<li class="fragment">Extensions have limited power</li>
-						</ul>
-					</div>
-					<aside class="notes">
-						<ul>
-							<li>Can add database fields, form fields, extra methods</li>
-							<li>Re-usable across projects if done right</li>
-							<li>Reliant on extension points for some features</li>
-							<li>Limited power - you might not be able to work around a bug</li>
-						</ul>
-					</aside>
-				</section>
+                <section>
+                    <h2>Workaround 1: Extensions</h2>
+                    <div>
+                        <h3>Pros</h3>
+                        <ul>
+                            <li>Can be used to add things to built-in classes</li>
+                            <li class="fragment">Reusable: package them up, release them as modules!</li>
+                        </ul>
+                    </div>
+                    <p></p>
+                    <div class="fragment">
+                        <h3>Cons/Caveats</h3>
+                        <ul>
+                            <li>Reliant on extension points</li>
+                            <li class="fragment">Extensions have limited power</li>
+                        </ul>
+                    </div>
+                    <aside class="notes">
+                        <ul>
+                            <li>Can add database fields, form fields, extra methods</li>
+                            <li>Re-usable across projects if done right</li>
+                            <li>Reliant on extension points for some features</li>
+                            <li>Limited power - you might not be able to work around a bug</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section data-background="img/injection.jpg" data-state="bgopacity02">
-					<h2>Workaround 2: Injector</h2>
-					<p>Example: adding an extension hook</p>
-					<pre class="language-php">ManyManyListWithHook.php
-						<code data-trim>
+                <section>
+                    <section data-background="img/injection.jpg" data-state="bgopacity02">
+                        <h2>Workaround 2: Injector</h2>
+                        <p>Example: adding an extension hook</p>
+                        <pre class="fragment language-php">ManyManyListWithHook.php
+                            <code data-trim>
 &lt;?php
 
 class ManyManyListWithHook extends ManyManyList {
 
-	public function add($item, $extraFields = null) {
-		parent::add($item, $extraFields);
+    public function add($item, $extraFields = null) {
+        parent::add($item, $extraFields);
 
-		if($item instanceof DataObject) {
-			$item->extend('onAfterManyManyAdd', $this);
-		}
-	}
+        if($item instanceof DataObject) {
+            $item->extend('onAfterManyManyAdd', $this);
+        }
+    }
 
 }
-						</code>
-					</pre>
-					<pre>_config.yml
-						<code data-trim class="nohighlight">
+                            </code>
+                        </pre>
+                        <pre class="fragment">_config.yml
+                            <code data-trim class="nohighlight">
 Injector:
   ManyManyList:
-	class: ManyManyListWithHook
-						</code>
-					</pre>
-					<aside class="notes">
-						<ul>
-							<li>Adding an extension hook</li>
-							<li>Inheriting from parent class/method</li>
-							<li>Minimal intrusion, minimal modification of args, minimal risk</li>
-						</ul>
-					</aside>
-				</section>
+    class: ManyManyListWithHook
+                            </code>
+                        </pre>
+                        <aside class="notes">
+                            <ul>
+                                <li>Adding an extension hook</li>
+                                <li>Inheriting from parent class/method</li>
+                                <li>Minimal intrusion, minimal modification of args, minimal risk</li>
+                            </ul>
+                        </aside>
+                    </section>
 
-				<section>
-					 <img src="img/mindblown.gif" />
-					 <p><small>Credit to <a href="https://github.com/camspiers">@camspiers</a> / <a href="https://github.com/heyday/silverstripe-cacheinclude">silverstripe-cacheinclude</a> module</small></p>
-				</section>
+                    <section>
+                         <img src="img/mindblown.gif" />
+                         <p><small>Credit to <a href="https://github.com/camspiers">@camspiers</a> / <a href="https://github.com/heyday/silverstripe-cacheinclude">silverstripe-cacheinclude</a> module</small></p>
+                    </section>
+                </section>
 
-				<section data-background="img/injectcore.jpg" data-state="bgopacity03">
-					<h2>Workaround 2: Injector</h2>
+                <section data-background="img/injectcore.jpg" data-state="bgopacity03">
+                    <h2>Workaround 2: Injector</h2>
                     <p>Example: using the extension hook</p>
-					<pre class="language-php">MemberExtension.php
+                    <pre class="language-php">MemberExtension.php
                         <code data-trim>
 &lt;?php
 
@@ -295,80 +297,80 @@ Member:
                         </code>
                     </pre>
                     <aside class="notes">
-	                    <ul>
-							<li>Can access everything from ManyManyList instance</li>
-							<li>Could add array of foreign IDs</li>
-							<li>Could add array of extra fields</li>
-							<li>Could add "before" hook so we can update extra fields</li>
-						</ul>
-					</aside>
-				</section>
+                        <ul>
+                            <li>Can access everything from ManyManyList instance</li>
+                            <li>Could add array of foreign IDs</li>
+                            <li>Could add array of extra fields</li>
+                            <li>Could add "before" hook so we can update extra fields</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<h2>Workaround 2: Injector</h2>
-					<div class="fragment">
-						<h3>Pros</h3>
-						<ul>
-							<li>Can “replace” an entire class</li>
-							<li class="fragment">Super powerful</li>
-						</ul>
-					</div>
-					<p></p>
-					<div class="fragment">
-						<h3>Cons/Caveats</h3>
-						<ul>
-							<li>With great power comes great responsibility</li>
-							<li class="fragment">Must be instantiated with one of:
-								<ul>
-									<li><code class="php">Class::create()</code></li>
-									<li><code class="php">Injector::inst()->get('Class')</code></li>
-									<li><code class="php">Injector::inst()->create('Class')</code></li>
-									<li><code class="php">Injector::inst()->createWithArgs('Class')</code></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					<aside class="notes">
-	                    <ul>
-							<li>Can override a method, or an entire set of methods</li>
-							<li>Can completely change the behaviour of a method/class</li>
-							<li>Completely changing the behaviour of a method is a bad idea!</li>
-						</ul>
-					</aside>
-				</section>
+                <section>
+                    <h2>Workaround 2: Injector</h2>
+                    <div>
+                        <h3>Pros</h3>
+                        <ul>
+                            <li>Can “replace” an entire class</li>
+                            <li class="fragment">Super powerful</li>
+                        </ul>
+                    </div>
+                    <p></p>
+                    <div class="fragment">
+                        <h3>Cons/Caveats</h3>
+                        <ul>
+                            <li>With great power comes great responsibility</li>
+                            <li class="fragment">Must be instantiated with one of:
+                                <ul>
+                                    <li><code class="php">Class::create()</code></li>
+                                    <li><code class="php">Injector::inst()->get('Class')</code></li>
+                                    <li><code class="php">Injector::inst()->create('Class')</code></li>
+                                    <li><code class="php">Injector::inst()->createWithArgs('Class')</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <aside class="notes">
+                        <ul>
+                            <li>Can override a method, or an entire set of methods</li>
+                            <li>Can completely change the behaviour of a method/class</li>
+                            <li>Completely changing the behaviour of a method is a bad idea!</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<img src="img/theres-more.jpg" />
-				</section>
+                <section>
+                    <img src="img/theres-more.jpg" />
+                </section>
 
-				<section>
-					<h2>When all else fails, fork it!</h2>
-					<p><img src="img/fork.png" /></p>
-					<ul>
-						<li>Create a fork, apply your fix</li>
-						<li>Use Git to periodically rebase from “upstream”</li>
-						<li>Composer helps to make this easier!</li>
-					</ul>
-					<aside class="notes">
-						<ul>
-							<li>Create your own branch</li>
-							<li>Upstream = main SilverStripe repo</li>
-							<li>Pull in changes, fixes, features - re-add yours on top</li>
-						</ul>
-					</aside>
-				</section>
+                <section>
+                    <h2>When all else fails, fork it!</h2>
+                    <p><img src="img/fork.png" /></p>
+                    <ul>
+                        <li>Create a fork, apply your fix</li>
+                        <li>Use Git to periodically rebase from “upstream”</li>
+                        <li>Composer helps to make this easier!</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>Create your own branch</li>
+                            <li>Upstream = main SilverStripe repo</li>
+                            <li>Pull in changes, fixes, features - re-add yours on top</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section data-background="img/fork.jpg" data-state="bgopacity01">
-					<h2>Example</h2>
+                <section data-background="img/fork.jpg" data-state="bgopacity01">
+                    <h2>Example</h2>
                     <pre class="fragment fade-in language-json" data-fragment-index="1">composer.json
-						<code data-trim class="fragment fade-out disp-out" data-fragment-index="4">
+                        <code data-trim class="fragment fade-out disp-out" data-fragment-index="4">
 {
     "require": {
         "silverstripe/cms": "3.1.15",
         "silverstripe/framework": "3.1.15"
     }
 }
-						</code><code data-trim class="fragment fade-in disp-in" data-fragment-index="4">
+                        </code><code data-trim class="fragment fade-in disp-in" data-fragment-index="4">
 {
     "require": {
         "silverstripe/cms": "3.1.15",
@@ -381,22 +383,22 @@ Member:
         }
     ]
 }
-						</code>
-					</pre>
-					<img class="fragment" data-fragment-index="2" style="float: left; width: 70%;" src="img/fork-github.png" />
+                        </code>
+                    </pre>
+                    <img class="fragment" data-fragment-index="2" style="float: left; width: 70%;" src="img/fork-github.png" />
                     <img class="fragment" data-fragment-index="3" style="float: right; width: 27%;" src="img/fork-url.png" />
                     <aside class="notes">
-						<ul>
-							<li>Fork - will create a copy of main repo on your account</li>
-							<li>Copy the clone URL, paste in "repositories"</li>
-						</ul>
-					</aside>
-				</section>
+                        <ul>
+                            <li>Fork - will create a copy of main repo on your account</li>
+                            <li>Copy the clone URL, paste in "repositories"</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<h2>Example</h2>
-					<pre>composer.json
-						<code data-trim class="fragment fade-out disp-out" data-fragment-index="1">
+                <section>
+                    <h2>Example</h2>
+                    <pre>composer.json
+                        <code data-trim class="fragment fade-out disp-out" data-fragment-index="1">
 {
     "require": {
         "silverstripe/cms": "3.1.15",
@@ -409,7 +411,7 @@ Member:
         }
     ]
 }
-						</code><code data-trim class="fragment fade-in disp-in" data-fragment-index="1">
+                        </code><code data-trim class="fragment fade-in disp-in" data-fragment-index="1">
 {
     "require": {
         "silverstripe/cms": "3.1.15",
@@ -422,36 +424,36 @@ Member:
         }
     ]
 }
-						</code>
-					</pre>
-					<aside class="notes">
-						<ul>
-							<li>Imagine we&rsquo;ve created a new branch &ldquo;hotfix&rdquo;</li>
-							<li>Push your commit/commits up to your fork</li>
-							<li>Swap in your branch name</li>
-							<li><code>dev-</code> prefix tells Composer &ldquo;use latest&rdquo;</li>
-						</ul>
-					</aside>
-				</section>
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        <ul>
+                            <li>Imagine we&rsquo;ve created a new branch &ldquo;hotfix&rdquo;</li>
+                            <li>Push your commit/commits up to your fork</li>
+                            <li>Swap in your branch name</li>
+                            <li><code>dev-</code> prefix tells Composer &ldquo;use latest&rdquo;</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<h2>Not quite...</h2>
-					<img src="img/composer-error.png" />
-					<img src="img/almostthere.gif" class="fragment fade-out" />
-					<aside class="notes">
-						<ul>
-							<li>1 problem, 7 errors, don&rsquo;t lose faith</li>
-							<li>Composer is trying its best! Step through it</li>
-							<li>It tells us it&rsquo;s conflicted between <code>3.1.x-dev</code> and <code>dev-hotfix</code></li>
-							<li>It can&rsquo;t translate <code>dev-hotfix</code> to a version number</li>
-						</ul>
-					</aside>
-				</section>
+                <section>
+                    <h2>Not quite...</h2>
+                    <img src="img/composer-error.png" />
+                    <img src="img/almostthere.gif" class="fragment fade-out" />
+                    <aside class="notes">
+                        <ul>
+                            <li>1 problem, 7 errors, don&rsquo;t lose faith</li>
+                            <li>Composer is trying its best! Step through it</li>
+                            <li>It tells us it&rsquo;s conflicted between <code>3.1.x-dev</code> and <code>dev-hotfix</code></li>
+                            <li>It can&rsquo;t translate <code>dev-hotfix</code> to a version number</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section data-transition="slide-in fade-out">
-					<h2>Fixed!</h2>
-					<pre>composer.json
-						<code data-trim>
+                <section data-transition="slide-in fade-out">
+                    <h2>Fixed!</h2>
+                    <pre>composer.json
+                        <code data-trim>
 {
     "require": {
         "silverstripe/cms": "3.1.15",
@@ -464,15 +466,15 @@ Member:
         }
     ]
 }
-						</code>
-					</pre>
-					<img style="visibility:hidden" src="img/composer-complete.png" width="532" />
-				</section>
+                        </code>
+                    </pre>
+                    <img style="visibility:hidden" src="img/composer-complete.png" width="532" />
+                </section>
 
-				<section data-transition="fade-in slide-out" data-background="img/borat-nice.jpg" data-state="bgopacity02">
-					<h2>Fixed!</h2>
-					<pre>composer.json
-						<code data-trim>
+                <section data-transition="fade-in slide-out" data-background="img/borat-nice.jpg" data-state="bgopacity02">
+                    <h2>Fixed!</h2>
+                    <pre>composer.json
+                        <code data-trim>
 {
     "require": {
         "silverstripe/cms": "3.1.15",
@@ -485,115 +487,115 @@ Member:
         }
     ]
 }
-						</code>
-					</pre>
-					<img class="fragment" data-fragment-index="2" src="img/composer-complete.png" width="532" />
-					<aside class="notes">
-						<ul>
-							<li>Will fetch <code>hotfix</code> and alias it to <code>3.1.x-dev</code></li>
-							<li>Tells Composer which version (roughly) our branch matches up to</li>
-							<li>Could tag a release, but that would cause confusion - <code>dev</code> communicates instability to other devs</li>
-							<li>Whenever/wherever/whoever <code>composer install</code>s - it will be the same</li>
-						</ul>
-					</aside>
-				</section>
+                        </code>
+                    </pre>
+                    <img class="fragment" data-fragment-index="2" src="img/composer-complete.png" width="532" />
+                    <aside class="notes">
+                        <ul>
+                            <li>Will fetch <code>hotfix</code> and alias it to <code>3.1.x-dev</code></li>
+                            <li>Tells Composer which version (roughly) our branch matches up to</li>
+                            <li>Could tag a release, but that would cause confusion - <code>dev</code> communicates instability to other devs</li>
+                            <li>Whenever/wherever/whoever <code>composer install</code>s - it will be the same</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<h2>Forking</h2>
-					<div>
-						<h3>Pros</h3>
-						<ul>
-							<li>Easier to:
-								<ul>
-									<li class="fragment">keep track of modifications made</li>
-									<li class="fragment">re-apply changes during updates - rebase/cherry-pick</li>
-									<li class="fragment">create a PR!</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					<p></p>
-					<div class="fragment">
-						<h3>Cons/Caveats</h3>
-						<ul>
-							<li>While easier, it’s still extra effort!</li>
-							<li class="fragment">Slows down composer updates</li>
-						</ul>
-					</div>
-					<aside class="notes">
-						<ul>
-							<li><strong>Pros</strong> - Keep track - commit history, fixed in time</li>
-							<li>Reapplying changes - Git was designed for this, leverage it!</li>
-							<li>Create PR - everyone can share your awesome code</li>
-							<li><strong>Cons</strong> - It&rsquo;s extra effort - still very manual</li>
-							<li>Slows down updates (not installs). Runs through every branch/tag for .json, scans them</li>
-						</ul>
-					</aside>
-				</section>
+                <section>
+                    <h2>Forking</h2>
+                    <div>
+                        <h3>Pros</h3>
+                        <ul>
+                            <li>Easier to:
+                                <ul>
+                                    <li class="fragment">keep track of modifications made</li>
+                                    <li class="fragment">re-apply changes during updates - rebase/cherry-pick</li>
+                                    <li class="fragment">create a PR!</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <p></p>
+                    <div class="fragment">
+                        <h3>Cons/Caveats</h3>
+                        <ul>
+                            <li>While easier, it’s still extra effort!</li>
+                            <li class="fragment">Slows down composer updates</li>
+                        </ul>
+                    </div>
+                    <aside class="notes">
+                        <ul>
+                            <li><strong>Pros</strong> - Keep track - commit history, fixed in time</li>
+                            <li>Reapplying changes - Git was designed for this, leverage it!</li>
+                            <li>Create PR - everyone can share your awesome code</li>
+                            <li><strong>Cons</strong> - It&rsquo;s extra effort - still very manual</li>
+                            <li>Slows down updates (not installs). Runs through every branch/tag for .json, scans them</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section data-background="img/finished.jpg" data-state="bgopacity01">
-					<h2>Summary</h2>
-					<ul>
-						<li class="fragment">Use extensions where possible</li>
-						<li class="fragment">For simple additions/fixes to methods, Injector should be okay</li>
-						<li class="fragment">For anything else you can’t work around, fork as last resort</li>
-						<li class="fragment">Use Composer!</li>
-					</ul>
-					<aside class="notes">
-						<ul>
-							<li>Extensions - lightweight, easy (for you &amp; others), reusable</li>
-							<li>Injector - use with caution, don&rsquo;t re-invent the wheel with it</li>
-							<li>Fork - last resort. If you can&rsquo;t work around/talk client down, or critical</li>
-						</ul>
-					</aside>
-				</section>
+                <section data-background="img/finished.jpg" data-state="bgopacity01">
+                    <h2>Summary</h2>
+                    <ul>
+                        <li class="fragment">Use extensions where possible</li>
+                        <li class="fragment">For simple additions/fixes to methods, Injector should be okay</li>
+                        <li class="fragment">For anything else you can’t work around, fork as last resort</li>
+                        <li class="fragment">Use Composer!</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>Extensions - lightweight, easy (for you &amp; others), reusable</li>
+                            <li>Injector - use with caution, don&rsquo;t re-invent the wheel with it</li>
+                            <li>Fork - last resort. If you can&rsquo;t work around/talk client down, or critical</li>
+                        </ul>
+                    </aside>
+                </section>
 
-				<section>
-					<h2>Thanks/questions</h2>
-					<p>Feedback welcomed!</p>
-					<table>
-						<tr>
-							<td style="text-align: center" width="33%"><img src="img/twitter.png" width="150" />@kinglozzer</td>
-							<td style="text-align: center" width="33%"><img src="img/github.png" width="150" />@kinglozzer</td>
-							<td style="text-align: center" width="33%"><img src="img/email.png" width="150" />lozcalver@bigfork.co.uk</td>
-						</tr>
-					</table>
-				</section>
+                <section>
+                    <h2>Thanks/questions</h2>
+                    <p>Feedback welcomed!</p>
+                    <table>
+                        <tr>
+                            <td style="text-align: center" width="33%"><img src="img/twitter.png" width="150" />@kinglozzer</td>
+                            <td style="text-align: center" width="33%"><img src="img/github.png" width="150" />@kinglozzer</td>
+                            <td style="text-align: center" width="33%"><img src="img/email.png" width="150" />lozcalver@bigfork.co.uk</td>
+                        </tr>
+                    </table>
+                </section>
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
 
-		<script>
+        <script>
 
-			// Full list of configuration options available at:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
 
-				width: 910,
-				height: 700,
+                width: 930,
+                height: 700,
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
 
-				// Optional reveal.js plugins
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
 
-		</script>
+        </script>
 
-	</body>
+    </body>
 </html>
